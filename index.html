@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JM Laundry - Grand Opening!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Warna latar belakang yang lembut */
+            color: #333;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .header {
+            background-color: #1a2a51; /* Warna biru tua sesuai gambar */
+            color: #fff;
+            padding: 2.5rem 0;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+        .header p {
+            font-size: 1.5rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a2a51;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .icon-box {
+            background-color: #e0f2fe; /* Latar belakang icon yang lebih terang */
+            border-radius: 50%;
+            padding: 1.2rem;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .icon-box img { /* Style for the image inside icon-box */
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+        .icon-box svg {
+            color: #1a2a51;
+            width: 40px;
+            height: 40px;
+        }
+        .footer {
+            background-color: #1a2a51;
+            color: #fff;
+            padding: 2rem 0;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            margin-top: 3rem;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: #007bff;
+        }
+        .promo-banner {
+            background-color: #ffeded; /* Warna latar belakang promo */
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px dashed #ff9999; /* Garis putus-putus untuk menarik perhatian */
+            margin-top: 2rem;
+        }
+        .promo-banner h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d6336c; /* Warna teks promo */
+            margin-bottom: 0.5rem;
+        }
+        .promo-banner p {
+            font-size: 1.1rem;
+            color: #d6336c;
+        }
+        .promo-text {
+            font-size: 1.8rem; /* Ukuran teks 'Cuci 8x Free 1x' */
+            font-weight: 800;
+            color: #007bff;
+            margin-top: 1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Slider Styles */
+        .slider-container {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        .slider-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slider-images img {
+            width: 100%;
+            height: 400px; /* Fixed height for consistency */
+            object-fit: cover; /* Ensures images cover the area */
+            border-radius: 15px;
+            flex-shrink: 0;
+        }
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+        }
+        .slider-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .slider-button.prev {
+            left: 10px;
+        }
+        .slider-button.next {
+            right: 10px;
+        }
+        .slider-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .slider-dot.active {
+            background-color: #007bff; /* Warna biru aksen untuk dot aktif */
+        }
+
+        /* Google Maps Styles */
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-top: 3rem;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            .header p {
+                font-size: 1.2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .promo-banner h2 {
+                font-size: 1.5rem;
+            }
+            .promo-text {
+                font-size: 1.5rem;
+            }
+            .slider-images img {
+                height: 250px; /* Smaller height for mobile */
+            }
+            .slider-button {
+                padding: 0.8rem 1rem;
+                font-size: 1.2rem;
+            }
+            .map-container iframe {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header text-center">
+        <div class="container">
+            <h1 class="text-white text-shadow-md">GRAND OPENING!</h1>
+            <p class="text-xl md:text-2xl mt-4">Bersih - Hygienis - Rapih - Harum</p>
+        </div>
+    </div>
+
+    <div class="container py-12">
+        <div class="text-center mb-10">
+            <!-- Logo JM Laundry (using text as placeholder or you can replace with image) -->
+            <div class="flex justify-center items-center mb-6">
+                <span class="text-7xl font-extrabold text-[#1a2a51]">JM</span>
+            </div>
+            <h2 class="section-title inline-block">LAUNDRY</h2>
+        </div>
+
+        <!-- Image Slider Section -->
+        <h3 class="section-title text-center mb-8">Galeri Kami</h3>
+        <div class="slider-container">
+            <div class="slider-images" id="sliderImages">
+                <img src="https://placehold.co/800x400/9b59b6/ffffff?text=Area+Cuci" alt="Area Cuci">
+                <img src="https://placehold.co/800x400/2ecc71/ffffff?text=Mesin+Cuci" alt="Mesin Cuci">
+                <img src="https://placehold.co/800x400/f1c40f/ffffff?text=Area+Setrika" alt="Area Setrika">
+                <img src="https://placehold.co/800x400/e74c3c/ffffff?text=Staf+Ramah" alt="Staf Ramah">
+            </div>
+            <button class="slider-button prev" onclick="prevSlide()">&#10094;</button>
+            <button class="slider-button next" onclick="nextSlide()">&#10095;</button>
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+
+        <!-- Layanan Kami Section -->
+        <div class="mb-12">
+            <h3 class="section-title text-center mb-8">Layanan Kami</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card Cuci Kering -->
+                <div class="card text-center">
+                    <div class="icon-box mx-auto">
+                        <img src="fold-laundry-vector-sticker-cartoon-folding_555225_wh1200.png" alt="Ikon Cuci Kering">
+                    </div>
+                    <h4 class="font-semibold text-lg mb-2">Cuci Kering</h4>
+                    <p class="text-gray-600 text-sm">Pakaian bersih, wangi, dan siap lipat.</p>
+                </div>
+                <!-- Card Cuci Lipat -->
+                <div class="card text-center">
+                    <div class="icon-box mx-auto">
+                        <img src="istockphoto-1175727931-612x612-removebg-preview.png" alt="Ikon Cuci Lipat">
+                    </div>
+                    <h4 class="font-semibold text-lg mb-2">Cuci Lipat</h4>
+                    <p class="text-gray-600 text-sm">Pakaian dicuci dan dilipat rapi.</p>
+                </div>
+                <!-- Card Cuci Sepatu -->
+                <div class="card text-center">
+                    <div class="icon-box mx-auto">
+                        <img src="unnamed.png" alt="Ikon Cuci Sepatu">
+                    </div>
+                    <h4 class="font-semibold text-lg mb-2">Cuci Sepatu</h4>
+                    <p class="text-gray-600 text-sm">Perawatan khusus untuk sepatu kesayangan.</p>
+                </div>
+                <!-- Card Cuci Tas -->
+                <div class="card text-center">
+                    <div class="icon-box mx-auto">
+                        <img src="Add_a_little_bit_of_body_text-removebg-preview.png" alt="Ikon Cuci Tas">
+                    </div>
+                    <h4 class="font-semibold text-lg mb-2">Cuci Tas</h4>
+                    <p class="text-gray-600 text-sm">Pembersihan dan perawatan tas favorit Anda.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Promo Section -->
+        <div class="promo-banner mt-12">
+            <h2 class="text-3xl font-bold">PROMO SPESIAL!</h2>
+            <p class="text-lg">Jangan lewatkan kesempatan emas ini:</p>
+            <p class="promo-text mt-4">CUCI 8 X<br>FREE 1 X</p>
+            <p class="text-sm italic mt-2">*SYARAT & KETENTUAN BERLAKU</p>
+        </div>
+
+        <!-- Google Maps Section -->
+        <h3 class="section-title text-center mb-8 mt-12">Temukan Kami</h3>
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.526279624584!2d106.45265491476906!3d-6.194411195509748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e421fd40f8b1d9b%3A0x7d0e40b3c6a4d7d1!2sRuko%20Greenville%20Blok%20A%2062%20No.%20572%2C%20Jl.%20Raya%20Maja%20-%20Tigaraksa%2C%20Maja%20Selatan%2C%20Kec.%20Maja%2C%20Kabupaten%20Lebak%2C%20Banten%2042381!5e0!3m2!1sid!2sid!4v1678891234567!5m2!1sid!2sid"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </div>
+
+    <!-- Informasi Kontak dan Lokasi -->
+    <div class="footer text-center">
+        <div class="container grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+            <!-- Lokasi -->
+            <div class="flex items-center justify-center md:justify-start text-left">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-blue-300">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+                <div>
+                    <p class="text-gray-300">Perumahan Citra Maja Raya,</p>
+                    <p class="text-gray-300">Cluster Ruko Greenville, Blok A 62 NO. 572</p>
+                </div>
+            </div>
+
+            <!-- Logo JM (opsional, bisa diganti dengan teks) -->
+            <div class="text-center text-4xl font-extrabold text-blue-400">
+                JM LAUNDRY
+            </div>
+
+            <!-- Kontak -->
+            <div class="flex flex-col items-center md:items-end text-right">
+                <div class="flex items-center mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-blue-300">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.355c0-.18-.044-.355-.125-.524l-.226-.441a2.25 2.25 0 00-2.099-1.14l-4.724.8l-1.949-1.95a2.25 2.25 0 00-1.14-2.099l-.44-.226a1.125 1.125 0 00-.525-.125H2.25v2.25zm17.55-5.617A2.25 2.25 0 0018 2.25h-.375c-.621 0-1.125.504-1.125 1.125v2.25c0 .621.504 1.125 1.125 1.125h.375m0-4.5V3.75c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V6.75c0 .621-.504 1.125-1.125 1.125h-2.25M17.25 11.25V9.75M12 2.25H9.75a2.25 2.25 0 00-2.25 2.25v2.25c0 .621.504 1.125 1.125 1.125h2.25c.621 0 1.125-.504 1.125-1.125V4.5a2.25 2.25 0 00-2.25-2.25z" />
+                    </svg>
+                    <a href="tel:+628777926010" class="text-white text-lg">+628777926010</a>
+                </div>
+                <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 mr-3 text-blue-300">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <a href="https://instagram.com/JMLAUNDRY.ID" target="_blank" class="text-white text-lg">@JMLAUNDRY.ID</a>
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-gray-400 text-sm mt-8">&copy; 2025 JM Laundry. Hak Cipta Dilindungi.</p>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.getElementById('sliderImages').children;
+        const dotsContainer = document.getElementById('sliderDots');
+
+        // Function to create slider dots
+        function createDots() {
+            for (let i = 0; i < slides.length; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('slider-dot');
+                dot.onclick = () => currentSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Function to show a specific slide
+        function showSlides(n) {
+            if (n >= slides.length) { slideIndex = 0 }
+            if (n < 0) { slideIndex = slides.length - 1 }
+
+            const offset = -slideIndex * 100;
+            document.getElementById('sliderImages').style.transform = `translateX(${offset}%)`;
+
+            // Update active dot
+            const dots = document.querySelectorAll('.slider-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === slideIndex) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        // Function for next slide
+        function nextSlide() {
+            slideIndex++;
+            showSlides(slideIndex);
+        }
+
+        // Function for previous slide
+        function prevSlide() {
+            slideIndex--;
+            showSlides(slideIndex);
+        }
+
+        // Function to go to a specific slide using dots
+        function currentSlide(n) {
+            slideIndex = n;
+            showSlides(slideIndex);
+        }
+
+        // Initialize slider on load
+        window.onload = function() {
+            createDots(); // Create dots after slides are loaded
+            showSlides(slideIndex); // Show the first slide
+            // Auto slide every 3 seconds
+            setInterval(nextSlide, 3000);
+        };
+    </script>
+</body>
+</html>
